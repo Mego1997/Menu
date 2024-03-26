@@ -8,6 +8,7 @@ use App\Models\Dollar;
 use App\Models\Image;
 use App\Models\Product;
 use App\Models\Shop;
+use App\Models\Waiter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
@@ -155,14 +156,10 @@ class ProductController extends Controller
         // Assuming the 'slug' field is used for the shop's slug
         $shop = Shop::where('slug', $slug)->firstOrFail();
         $table = session('table');
-
-
         return view('website.welcome', compact( 'shop','table'));
     }
     public function welcome($slug)
     {
-
-
         if(session('table') == null){
             return view('website.error');
 
@@ -171,8 +168,8 @@ class ProductController extends Controller
         $shop = Shop::where('slug', $slug)->firstOrFail();
         $products = Product::where('shop_id', $shop->id)->get();
         $table = session('table');
-
-
+   
+        
         return view('website.shop', compact('products', 'shop','table'));
     }
 
