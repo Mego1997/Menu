@@ -13,9 +13,9 @@
   - Add Resturant.
   - login into to resturant Dashboard By Account tou Created it in Manager Dashboard .
   - Add Your Categories And Products , Tables , Waiters .
-    <p>
-         # important
-    </p>
+    
+         ## important
+   
   - important you must add table and waiter to launch this project beacuse this is idea of project each table have qrcode .
   - Scan Qr For Any Table 
   - Welcome in Your Resturant Menu.
