@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Shop;
 use App\Models\Table;
+use App\Models\TableWaiter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -65,10 +66,9 @@ class TableController extends Controller
            }
 
         $shop = Shop::where('id', $table->shop_id)->firstOrFail();
-        $products = Product::where('shop_id', $shop->id)->paginate(20);
         $customUrl = 'http://127.0.0.1:8000/menu/' . $shop->slug;
         session(['table' => $table]);
-        return redirect($customUrl)->with(compact( 'shop', 'products'));
+        return redirect($customUrl)->with(compact( 'shop',));
     }
 
     public function generateQrCode($id)

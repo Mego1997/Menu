@@ -40,6 +40,7 @@
                                     <tr>
                                         <th>NO.</th>
                                         <th>Name</th>
+                                        <th>Tables</th>
                                         <th>Created At</th>
                                         <th>Operation</th>
                                     </tr>
@@ -51,6 +52,7 @@
                                     <tr>
                                         <td>{{ $key +1 }}</td>
                                         <td>{{ $waiter->name }}</td>
+                                        <td> @foreach($waiter->tables as $table) {{$table->name}}, @endforeach</td>
                                         <td>{{ $waiter->created_at->toDateString() }}</td>
                                         <td>
 

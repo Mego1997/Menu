@@ -3037,7 +3037,24 @@ p.print-txt {
     font-weight: 600;
     line-height: normal;
 }
+
 .print-continue-btn a{
+    width: 100%;
+    height: 50px;
+    border-radius: 8px;
+    background: red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color:#fff;
+    text-align: center;
+    font-family: Lato;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+.print-continue-btn button{
     width: 100%;
     height: 50px;
     border-radius: 8px;

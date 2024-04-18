@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\Waiter;
 use App\Models\Product;
 use App\Models\OrderDetails;
+use App\Models\Table;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -26,7 +27,10 @@ class WaiterController extends Controller
 
     public function create()
     {
-        return view('dashboard.waiters.create');
+        $user = Auth::user()->id;
+        $shop = Shop::where('user_id', $user)->first();
+        $tables = Table::where('shop_id',$shop->id)->get();
+        return view('dashboard.waiters.create',compact('tables'));
 
     }
 
@@ -50,11 +54,17 @@ class WaiterController extends Controller
         $user->type = 3;
         $user->save();
 
-        Waiter::create([
-            'name' => $request->name,
-            'shop_id' => $shop->id,
-            'user_id' => $user->id,
-        ]);
+        $waiter = new Waiter();
+        $waiter->name = $request->name;
+        $waiter->shop_id =  $shop->id;
+        $waiter->user_id = $user->id;
+        $waiter->save();
+
+        if ($request->tables) {
+            $tablesId = $request->input('tables');
+            $waiter->tables()->attach($tablesId);
+        }
+        
         return redirect()->route('waiters.index')->with('message' , "Waiter Added Successfully");
     }
 
@@ -62,14 +72,18 @@ class WaiterController extends Controller
     {
         $waiter = Waiter::find($id);
         $user = User::where('id',$waiter->user_id)->first();
+        
+        $userr = Auth::user()->id;
+        $shop = Shop::where('user_id', $userr)->first();
+        $tables = Table::where('shop_id',$shop->id)->get();
 
-        return view('dashboard.waiters.edit' , compact('waiter','user'));
+        return view('dashboard.waiters.edit' , compact('waiter','user','tables'));
 
     }
 
     public function update(Request $request, $id)
     {
-        $waiter = Waiter::find($id);
+        $waiter = Waiter::with('tables')->find($id);
         $user = User::where('id',$waiter->user_id)->first();
 
         if($request->password == null){
@@ -85,13 +99,20 @@ class WaiterController extends Controller
 
         $waiter->name = $request->name;
         $waiter->save();
+
+        $newTablesIds = $request->input('tables');
+        $waiter->tables()->sync($newTablesIds);
+        $removedTablesIds = $waiter->tables->pluck('id')->diff($newTablesIds)->all();
+        $waiter->tables()->detach($removedTablesIds);
+
         return redirect()->route('waiters.index')->with('message' , "Waiter Updated Successfully");
     }
     
     public function destroy($id )
     {
-        $waiter = Waiter::find($id)->delete();
+        $waiter = Waiter::find($id);
         $user = User::where('id',$waiter->user_id)->delete();
+        $waiter->delete();
         return redirect()->route('waiters.index')->with('message' , "Waiter Deleted Successfully");
 
     }

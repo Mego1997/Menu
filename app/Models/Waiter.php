@@ -17,4 +17,9 @@ class Waiter extends Model
     public function waiteruser(){
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function tables()
+    {
+        return $this->belongsToMany(Table::class);
+    }
 }

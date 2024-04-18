@@ -8,6 +8,7 @@ use App\Models\Dollar;
 use App\Models\Image;
 use App\Models\Product;
 use App\Models\Shop;
+use App\Models\TableWaiter;
 use App\Models\Waiter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
@@ -26,10 +27,15 @@ class ProductController extends Controller
         if(session('table') == null){
             return view('website.error');
         }
+        
+        if(session('selectWaiter') == null){
+            return view('website.error');
+        }
         $table = session('table');
         $shop = Shop::find($table->shop_id);
+        $selectWaiter = session('selectWaiter');
 
-        return view('website.cart',compact('table','shop'));
+        return view('website.cart',compact('table','shop','selectWaiter'));
     }
 
     public function products()
@@ -147,6 +153,7 @@ class ProductController extends Controller
 
     public function shop($slug)
     {
+    
 
 
         if(session('table') == null){
@@ -156,21 +163,27 @@ class ProductController extends Controller
         // Assuming the 'slug' field is used for the shop's slug
         $shop = Shop::where('slug', $slug)->firstOrFail();
         $table = session('table');
-        return view('website.welcome', compact( 'shop','table'));
+        $waiters = $table->waiters;
+        return view('website.welcome', compact( 'shop','table','waiters'));
     }
-    public function welcome($slug)
+    public function welcome(Request $request , $slug )
     {
         if(session('table') == null){
             return view('website.error');
 
         }
+        if($request->waiter_id == 0){
+            return back()->with('error', 'You Must Select Waiter');
+        }
         // Assuming the 'slug' field is used for the shop's slug
         $shop = Shop::where('slug', $slug)->firstOrFail();
         $products = Product::where('shop_id', $shop->id)->get();
         $table = session('table');
+        $waiter = Waiter::find($request->waiter_id);
+        session()->put('selectWaiter', $waiter);
+        $selectWaiter = session('selectWaiter');
    
-        
-        return view('website.shop', compact('products', 'shop','table'));
+        return view('website.shop', compact('products', 'shop','table','selectWaiter'));
     }
 
 

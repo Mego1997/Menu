@@ -81,6 +81,23 @@
                                                         <input value="{{ old('name') }}" type="text" id="userinput1" class="form-control border-primary" placeholder="name" name="name">
                                                     </div>
                                                 </div>
+
+                                                <div class="col-md-12">
+                                                    <h4 class="form-section text-dark"></i>Tables</h4>
+
+                                                    <div class="form-group text-center">
+                                                        @foreach($tables as $table)
+
+                                                        <div class="form-check form-check-inline ">
+                                                        <label class="text-dark font-weight-bold">Tabel : {{$table->name}}</label>
+                                                        <input style="height: 30px !important;width:100% !important" type="checkbox" value="{{$table->id}}" id="userinput1" class="form-check-input"  name="tables[]">
+                                                        </div>
+                                                        @endforeach
+
+                                                    </div>
+
+                                                </div>
+                                                
                                             </div>
 
                                         </div>

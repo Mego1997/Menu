@@ -29,7 +29,8 @@
                     </a>
                 </div>
                 <div class="top-navbar-title">
-                    <p>Welcome Table #{{$table->name}}</p>
+                    <p class="m-0">Welcome Table #{{$table->name}}</p>
+                    <p class="m-0">Waiter:{{$selectWaiter->name}}</p>
                 </div>
                 <!-- <div class="skip_btn notification-badge-btn">
                     <a href="notification.html">

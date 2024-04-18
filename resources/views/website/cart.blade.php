@@ -50,6 +50,8 @@
                                 <input type="hidden" name="subtotal[]" class="form-control" value="{{ $details['price'] * $details['quantity'] }}">
                                 <input type="hidden" name="total" class="form-control" value="{{ $total }}">
                                 <input type="hidden" name="table_id" class="form-control" value="{{ $table->id }}">
+                                <input type="hidden" name="waiter_id" class="form-control" value="{{ $selectWaiter->id }}">
+
                         </td>
                         <td data-title="Name">
                             <a class="cart-productname" href="#">{{ $details['name'] }}</a>
@@ -92,17 +94,8 @@
                             <tr class="shipping">
                                 <th>Waiter :</th>
                                 <td data-title="Shipping and Handling">
-                                    <select name="waiter_id" class="form-select">
-                                        <option value="0">Select Waiter</option>
-
-                                        @foreach ($shop->waiter as $waiter)
-                                        <option value="{{$waiter->id}}">{{$waiter->name}}</option>
-                                        @endforeach
-
-                                    </select>
-                                    <p class="woocommerce-shipping-destination">
-                                        You Must choice Waiter.
-                                    </p>
+                                    <span class="amount"><bdi>{{$selectWaiter->name}}</bdi></span>
+                                    
                                 </td>
                             </tr>
                             <tr  class="order-total">

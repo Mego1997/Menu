@@ -83,6 +83,21 @@
                                                         <input type="text" id="userinput1" class="form-control border-primary" placeholder="name" name="name" value='{{$waiter->name}}'>
                                                     </div>
                                                 </div>
+
+                                                <div class="col-md-6">
+                                                    <h4 class="form-section text-dark"><i class="feather icon-edit-2"></i> Waiter Table's</h4>
+                                                    <div class="form-group text-center">
+                                                        @foreach($tables as $table)
+
+                                                        <div class="form-check form-check-inline ">
+                                                           <label class="text-dark font-weight-bold">Tabel : {{$table->name}}</label>
+                                                           <input  type="checkbox" value="{{$table->id}}" id="userinput1" class="form-control border-primary"  name="tables[]" @foreach($table->waiters as $waiter_id) {{$waiter->id == $waiter_id->id ? 'checked' : ''}} @endforeach>
+                                                        </div>
+                                                        @endforeach
+
+                                                    </div>
+
+                                                </div>
                                             </div>
 
                                         </div>

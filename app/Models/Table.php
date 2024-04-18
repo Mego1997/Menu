@@ -13,4 +13,8 @@ class Table extends Model
     public function shop(){
         return $this->belongsTo(Shop::class, 'shop_id');
     }
+    public function waiters()
+    {
+        return $this->belongsToMany(Waiter::class);
+    }
 }

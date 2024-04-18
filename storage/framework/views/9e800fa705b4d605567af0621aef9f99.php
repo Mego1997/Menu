@@ -29,7 +29,8 @@
                     </a>
                 </div>
                 <div class="top-navbar-title">
-                    <p>Welcome Table #<?php echo e($table->name); ?></p>
+                    <p class="m-0">Welcome Table #<?php echo e($table->name); ?></p>
+                    <p class="m-0">Waiter:<?php echo e($selectWaiter->name); ?></p>
                 </div>
                 <!-- <div class="skip_btn notification-badge-btn">
                     <a href="notification.html">

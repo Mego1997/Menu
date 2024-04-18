@@ -52,7 +52,6 @@ class OrderController extends Controller
     public function store(Request $request)
     {
 
-
        if(!$request->table_id  || !$request->product_id  ){
         return redirect()->back()->with('message' , "You Must Choise Order");
        }
@@ -103,7 +102,8 @@ class OrderController extends Controller
 
 
         session()->forget('cart');
-        return redirect()->route('website.welcome',$shop->slug)->with('done', 'Order Added Successfully');
+        session()->forget('selectWaiter');
+        return redirect()->route('website.shopp',$shop->slug)->with('done', 'Order Added Successfully');
 
     }
     private function calculateDistance($lat1, $lon1, $lat2, $lon2)

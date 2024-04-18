@@ -40,6 +40,7 @@
                                     <tr>
                                         <th>NO.</th>
                                         <th>Name</th>
+                                        <th>Tables</th>
                                         <th>Created At</th>
                                         <th>Operation</th>
                                     </tr>
@@ -51,6 +52,7 @@
                                     <tr>
                                         <td><?php echo e($key +1); ?></td>
                                         <td><?php echo e($waiter->name); ?></td>
+                                        <td> <?php $__currentLoopData = $waiter->tables; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $table): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> <?php echo e($table->name); ?>, <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?></td>
                                         <td><?php echo e($waiter->created_at->toDateString()); ?></td>
                                         <td>
 

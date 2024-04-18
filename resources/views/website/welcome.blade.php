@@ -41,21 +41,58 @@
     <section id="finger-print-sec">
         <div class="container">
             <div class="finger-print-sec-full">
+                <form class="form" action="{{ route('website.welcome', $shop->slug) }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    @method('get')
                 <div class="finger-top text-center">
                     <img style="height: 70px !important;" src="{{ url('shops/' . $shop->logo) }}" alt="Pizzan">
                 </div>
                 <div class="finger-bottom">
+                    @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
+                @if(session('done'))
+                <div class="woocommerce-notices-wrapper bg-success">
+                    <div class="woocommerce-message">
+                        {{ session('done') }}
+                    </div>
+                </div>
+            @endif
                 </div>
                 <div class="finger-print-sec-btn">
+
                     <div class="finger-print-sec-btn-wrapp">
                         <p class="">{{$shop->slug}}</p>
+                        <div class="row align-items-baseline pb-50">
+                            <div class="col-3">
+                                <label style="color: white;font-size: 15px;">My Waiter </label>
+
+                            </div>
+                            <div class="col-9 text-center">
+                                
+                                <select name="waiter_id" class="form-select">
+                                    <option value="0">Select Waiter</option>
+                                    @foreach ($waiters as $waiter)
+                                    <option value="{{$waiter->id}}">{{$waiter->name}}</option>
+                                    @endforeach
+        
+                                </select>
+                                <label style="color: white;padding-top:10px ">You Must Select Waiter</label>
+
+                            </div>
+                          
+                        </div>
+                       
 
 
                         <div style="width: 100%" class="print-continue-btn">
-                            <a href="{{route('website.welcome',$shop->slug)}}" >Make an Order</a>
+                            <button >Make an Order</button>
                         </div>
                     </div>
                 </div>
+                </form>
             </div>
         </div>
     </section>

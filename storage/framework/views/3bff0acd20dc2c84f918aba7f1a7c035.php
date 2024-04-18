@@ -1,11 +1,11 @@
-<?php $__env->startSection('title' , 'Add Waiter'); ?>
+<?php $__env->startSection('title' , 'Edit Waiter'); ?>
 <?php $__env->startSection('body'); ?>
 
     <div class="content-overlay"></div>
     <div class="content-wrapper">
         <div class="content-header row">
             <div class="content-header-left col-md-6 col-12 mb-2">
-                <h3 class="content-header-title mb-0">Add Waiter</h3>
+                <h3 class="content-header-title mb-0">Edit Waiter</h3>
                 <div class="row breadcrumbs-top">
                     <div class="breadcrumb-wrapper col-12">
                         <ol class="breadcrumb">
@@ -13,7 +13,7 @@
                             </li>
                             <li class="breadcrumb-item"><a href="<?php echo e(url('/dashboard/waiters')); ?>">Waiters</a>
                             </li>
-                            <li class="breadcrumb-item active">Add Waiter </li>
+                            <li class="breadcrumb-item active">Edit Waiter </li>
                         </ol>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title" id="basic-layout-colored-form-control">Add Waiter</h4>
+                                <h4 class="card-title" id="basic-layout-colored-form-control">Edit Waiter</h4>
                                 <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                                 <div class="heading-elements">
                                     <ul class="list-inline mb-0">
@@ -56,47 +56,47 @@
                                             </ul>
                                         </div>
                                     <?php endif; ?>
-                                    <form class="form" action="<?php echo e(route('waiters.store')); ?>" method="post" enctype="multipart/form-data">
+                                    <form class="form" action="<?php echo e(route('waiters.update', $waiter->id)); ?>" method="post" enctype="multipart/form-data">
                                         <?php echo csrf_field(); ?>
+                                        <?php echo method_field('put'); ?>
+
 
                                         <div class="form-body">
 
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <h4 class="form-section text-dark"></i>Email</h4>
+                                                    <h4 class="form-section text-dark"><i class="feather icon-edit-2"></i>Email</h4>
                                                     <div class="form-group">
-                                                        <input value="<?php echo e(old('email')); ?>" type="email" id="userinput1" class="form-control border-primary" placeholder="Email" name="email">
+                                                        <input type="email" id="userinput1" class="form-control border-primary" placeholder="Email" name="email" value="<?php echo e($user->email); ?>">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <h4 class="form-section text-dark"></i>Password</h4>
+                                                    <h4 class="form-section text-dark"><i class="feather icon-edit-2"></i>Password</h4>
                                                     <div class="form-group">
-                                                        <input value="<?php echo e(old('password')); ?>" type="password" id="userinput1" class="form-control border-primary" placeholder="Password" name="password">
+                                                        <input type="password" id="userinput1" class="form-control border-primary" placeholder="Enter New Password If you Need To Change" name="password">
                                                     </div>
                                                 </div>
-                                                <div class="col-md-12">
-                                                    <h4 class="form-section text-dark"></i>Name</h4>
+                                                <div class="col-md-6">
+                                                    <h4 class="form-section text-dark"><i class="feather icon-edit-2"></i> Waiter Name</h4>
                                                     <div class="form-group">
-                                                        <input value="<?php echo e(old('name')); ?>" type="text" id="userinput1" class="form-control border-primary" placeholder="name" name="name">
+                                                        <input type="text" id="userinput1" class="form-control border-primary" placeholder="name" name="name" value='<?php echo e($waiter->name); ?>'>
                                                     </div>
                                                 </div>
 
-                                                <div class="col-md-12">
-                                                    <h4 class="form-section text-dark"></i>Tables</h4>
-
+                                                <div class="col-md-6">
+                                                    <h4 class="form-section text-dark"><i class="feather icon-edit-2"></i> Waiter Table's</h4>
                                                     <div class="form-group text-center">
                                                         <?php $__currentLoopData = $tables; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $table): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
                                                         <div class="form-check form-check-inline ">
-                                                        <label class="text-dark font-weight-bold">Tabel : <?php echo e($table->name); ?></label>
-                                                        <input style="height: 30px !important;width:100% !important" type="checkbox" value="<?php echo e($table->id); ?>" id="userinput1" class="form-check-input"  name="tables[]">
+                                                           <label class="text-dark font-weight-bold">Tabel : <?php echo e($table->name); ?></label>
+                                                           <input  type="checkbox" value="<?php echo e($table->id); ?>" id="userinput1" class="form-control border-primary"  name="tables[]" <?php $__currentLoopData = $table->waiters; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $waiter_id): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> <?php echo e($waiter->id == $waiter_id->id ? 'checked' : ''); ?> <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>>
                                                         </div>
                                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                                                     </div>
 
                                                 </div>
-                                                
                                             </div>
 
                                         </div>
@@ -124,4 +124,4 @@
 
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('dashboard.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\gitproject\menuNew\resources\views/dashboard/waiters/create.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('dashboard.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\gitproject\menuNew\resources\views/dashboard/waiters/edit.blade.php ENDPATH**/ ?>

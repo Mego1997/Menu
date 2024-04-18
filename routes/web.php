@@ -66,7 +66,6 @@ Route::get('/product/{id}', [App\Http\Controllers\SingleProduct::class, 'show'])
 
 Route::middleware(['customer-auth'])->group(function () {
 
-    Route::get('/profile/{id}', [App\Http\Controllers\CustomerProfileController::class, 'index'])->name('website.profile');
 
 });
 
@@ -167,12 +166,7 @@ Route::middleware(['auth', 'user-access:super-admin'])->group(function () {
     Route::post('/dashboard/sale_invoices/store', [App\Http\Controllers\SaleInvoiceController::class, 'store'])->name('sale_invoices.store');
     Route::delete('/dashboard/sale_invoices/destroy/{id}', [App\Http\Controllers\SaleInvoiceController::class, 'destroy'])->name('sale_invoices.destroy');
 
-    // Dashboard sale_details
-    Route::get('/dashboard/purchase_invoices', [App\Http\Controllers\PurchaseInvoiceController::class, 'index'])->name('purchase_invoices.index');
-    Route::get('/dashboard/purchase_invoices/create', [App\Http\Controllers\PurchaseInvoiceController::class, 'create'])->name('purchase_invoices.create');
-    Route::get('/dashboard/purchase_invoices/show/{id}', [App\Http\Controllers\PurchaseInvoiceController::class, 'show'])->name('purchase_invoices.show');
-    Route::post('/dashboard/purchase_invoices/store', [App\Http\Controllers\PurchaseInvoiceController::class, 'store'])->name('purchase_invoices.store');
-    Route::delete('/dashboard/purchase_invoices/destroy/{id}', [App\Http\Controllers\PurchaseInvoiceController::class, 'destroy'])->name('purchase_invoices.destroy');
+   
 });
 
 Route::middleware(['auth', 'user-access:waiter'])->group(function () {

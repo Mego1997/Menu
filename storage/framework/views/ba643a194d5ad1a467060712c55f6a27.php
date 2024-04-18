@@ -51,6 +51,8 @@
                                 <input type="hidden" name="subtotal[]" class="form-control" value="<?php echo e($details['price'] * $details['quantity']); ?>">
                                 <input type="hidden" name="total" class="form-control" value="<?php echo e($total); ?>">
                                 <input type="hidden" name="table_id" class="form-control" value="<?php echo e($table->id); ?>">
+                                <input type="hidden" name="waiter_id" class="form-control" value="<?php echo e($selectWaiter->id); ?>">
+
                         </td>
                         <td data-title="Name">
                             <a class="cart-productname" href="#"><?php echo e($details['name']); ?></a>
@@ -93,17 +95,8 @@
                             <tr class="shipping">
                                 <th>Waiter :</th>
                                 <td data-title="Shipping and Handling">
-                                    <select name="waiter_id" class="form-select">
-                                        <option value="0">Select Waiter</option>
-
-                                        <?php $__currentLoopData = $shop->waiter; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $waiter): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option value="<?php echo e($waiter->id); ?>"><?php echo e($waiter->name); ?></option>
-                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-
-                                    </select>
-                                    <p class="woocommerce-shipping-destination">
-                                        You Must choice Waiter.
-                                    </p>
+                                    <span class="amount"><bdi><?php echo e($selectWaiter->name); ?></bdi></span>
+                                    
                                 </td>
                             </tr>
                             <tr  class="order-total">
@@ -116,7 +109,7 @@
                     </table>
                 </div>
                 <div class="wc-proceed-to-checkout col-6">
-                    <a href="<?php echo e(route('website.shopp',$shop->slug)); ?>" class="th-btn rounded-2">Continue Order</a>
+                    <a href="<?php echo e(route('website.welcome',$shop->slug)); ?>" class="th-btn rounded-2">Continue Order</a>
                 </div>
                 <div class="wc-proceed-to-checkout col-6">
                     <button type="submit"  class="th-btn rounded-2 bg-success">Confirm Order</button>
